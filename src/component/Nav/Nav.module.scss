@@ -1,0 +1,19 @@
+header {
+  height: 100px;
+  //padding: 1rem;//내부여백
+  color: white;
+  background: teal;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 30px 30px 30px 30px;
+  position: relative;
+}
+h1, p {
+  margin: 0;
+}
+
+.menu__list {
+  background: #000;
+}

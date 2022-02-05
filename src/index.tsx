@@ -1,10 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './component/App';
 import reportWebVitals from './reportWebVitals';
+// import { createStore } from 'redux';
+// import { reducer } from './lib/store';
 
-ReactDOM.render(
+render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

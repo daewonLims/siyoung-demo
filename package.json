@@ -1,14 +1,40 @@
 {
-  "name": "react-example",
+  "name": "ts_tutorial",
   "version": "0.1.0",
-  "private": true,
+  "homepage": ".",
+  "description": "Siyoung - React Example",
+  "keywords": [
+    "React",
+    "Typescript",
+    "Examples"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@types/classnames": "^2.3.1",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-redux": "^7.1.22",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/uuid": "^8.3.4",
+    "axios": "^0.25.0",
+    "classnames": "^2.3.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "http-proxy-middleware": "^2.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "^5.0.0",
+    "redux": "^4.1.2",
+    "redux-actions": "^2.6.5",
+    "sass": "^1.49.7",
+    "styled-components": "^5.3.3",
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^4.5.5",
+    "uuid": "^3.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +60,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/jest": "27.4.0",
+    "@types/redux-actions": "^2.6.2",
+    "eslint-config-airbnb":"^19.0.4"
   }
 }
