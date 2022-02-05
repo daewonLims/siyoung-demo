@@ -1,26 +1,46 @@
 // import { userInfo } from 'os';
 import React, { Component } from 'react';
 import styles from './Join.module.scss';
-class Join extends Component{
+import {Props} from '../../Nav/index';
 
-  // id password state 값 정의
-  state ={
-    input :{
-      id: '',
-      password:'',
-      checkPW:'',
-      userName:'',
-      userBirth:'',
-    },
-    userInfo:{
-      id:'',
-      password:'',
-      userName:'',
-      userBirth:'',
-    },
-    flag:{
-      passwordCheckFlag:false,
-      signupCheckFlag:false,
+interface State {
+  input:{
+    id:string,
+    password:string,
+    checkPW:string,
+    userName:string,
+    userBirth:string,
+  };
+  userInfo:{
+    id:string,
+    password:string,
+    userName:string,
+    userBirth:string,
+  };
+  [key:string]:any;
+}
+class Join extends Component<Props, State>{
+  constructor(props:Props) {
+    super(props);
+    // id password state 값 정의
+    this.state ={
+      input :{
+        id: '',
+        password:'',
+        checkPW:'',
+        userName:'',
+        userBirth:'',
+      },
+      userInfo:{
+        id:'',
+        password:'',
+        userName:'',
+        userBirth:'',
+      },
+      flag:{
+        passwordCheckFlag:false,
+        signupCheckFlag:false,
+      }
     }
   }
   //인풋 아이디 받기 - 인풋 change event
@@ -86,25 +106,27 @@ class Join extends Component{
   }
   //이름 받기
   inputName=(e:any)=>{
-    this.setState({
-      input:{
-        id:this.state.input.id,
-        password:this.state.input.password,
-        checkPW:this.state.input.checkPW,
-        userBirth:this.state.input.userBirth,
-        userName:e.target.value,
-      }
-    })
-  }
-  //생년월일 받기
-  userBirth = (e:any) => {
     console.log(e.target.value)
     this.setState({
       input:{
         id:this.state.input.id,
         password:this.state.input.password,
         checkPW:this.state.input.checkPW,
-        userBrith:e.target.value,
+        userName:e.target.value,
+        userBirth:this.state.input.userBirth,
+      }
+    })
+  }
+  //생년월일 받기
+  userBirth = (e:any) => {
+    let birth:string = e.target.value;
+    console.log('birth day::', birth)
+    this.setState({
+      input:{
+        id:this.state.input.id,
+        password:this.state.input.password,
+        checkPW:this.state.input.checkPW,
+        userBirth: birth,
         userName:this.state.input.userName,
       }
     })
@@ -116,13 +138,15 @@ class Join extends Component{
     //나중에 입풋값들 유효성 체크
     console.log("생년월일 인풋값 ::"+this.state.input.userBirth);
     console.log("아이디 인풋값 ::"+this.state.input.id);
-    // if (!this.state.flag.signupCheckFlag) {
-    //   alert('입력값을 전부 입력해주세요')
-    //   return false;
-    // } else {
-      this.allInput(this.state.input.id, this.state.input.password, this.state.input.checkPW
-        , this.state.input.userBirth, this.state.input.userName);
-        console.log("올인풋 받아오는 값:::"+this.state.input.id+this.state.input.userName);
+    
+    let validationCheck = this.allInput(this.state.input.id, this.state.input.password, this.state.input.checkPW
+      ,this.state.input.userName, this.state.input.userBirth);
+      console.log("올인풋 받아오는 값:::"+this.state.input.id+this.state.input.userName);
+    if ( !validationCheck ) {
+      // 유효성 체크 
+      return false;
+    } else {
+      // 유효성 체크 정상
       this.setState({
         userInfo:{
           id:this.state.input.id,
@@ -130,62 +154,38 @@ class Join extends Component{
           userBirth:this.state.input.userBirth,
           userName:this.state.input.userName,
         },
-        input:{id:'',password:''} //초기화
+        input:{
+          id:'',password:'',checkPW:'',userName:'',userBirth:''
+        }
       }, ()=> {
         //setState는 함수의 가장 마지막에서만 사용할것 -> 나중에 찾아봐 마지막에 쓰는 이유
         console.log("유저인포 :::"+ this.state.input.id + this.state.userInfo.password 
-              +this.state.userInfo.userName+ this.state.userInfo.userBirth);
+        +this.state.userInfo.userName+ this.state.userInfo.userBirth);
       })
-    // }
+    }
+    
   }
   //입력값 받기
   allInput=(inputID?:string, inputPW?:string, inputPWCheck?:string, inputName?:string, inputBrith?:string)=>{
     if(!inputID){
       alert("아이디 입력해라");
-      this.setState({
-        flag:{
-          signupCheckFlag:false,
-        }
-      })
-      if(!inputPW){
-        alert("비밀번호 입력해라");
-        this.setState({
-          flag:{
-            signupCheckFlag:false,
-          }
-        })
-        if(!inputPWCheck){
-          alert("비밀번호 체크 입력해라");
-          this.setState({
-            flag:{
-              signupCheckFlag:false,
-            }
-          })
-          if(!inputName){
-            alert("이름 입력해라");
-            this.setState({
-              flag:{
-                signupCheckFlag:false,
-              }
-            })
-            if(!inputBrith){
-              alert("생년월일 입력해라");
-              this.setState({
-                flag:{
-                  signupCheckFlag:false,
-                }
-              })
-            }else{
-              this.setState({
-                flag:{
-                  signupCheckFlag:true,
-                }
-              })
-            }
-          }
-        }
-      }
+      return false;
+    } else if(!inputPW){
+      alert("비밀번호 입력해라");
+      return false;
+    } else if (inputPW !== inputPWCheck) {
+      alert("비번확인 다시");
+      return false;
+    } else if (inputName?.trim() === '') {
+      alert("이름 입력");
+      return false;
+    } else if (inputBrith?.trim() === '') {
+      alert("생일 입력");
+      return false;
+    } else {
+      return true;
     }
+     
   }
   
 
@@ -201,18 +201,19 @@ class Join extends Component{
             <div className={styles.input_box}>
               <label htmlFor="id">아이디</label>
               <input type="text" id="id" placeholder="아이디임"
-                  defaultValue={input.id} onChange={this.inputIDChange} />
+                  value={input.id}
+                  onChange={this.inputIDChange} />
             </div>   
             <div className={styles.input_box}>
               <label htmlFor="">비밀번호</label>
               <input type="password" placeholder="비번임" id="password"
-                  defaultValue={input.password} onChange={this.inputPWChange}/>  
+                  value={input.password} onChange={this.inputPWChange}/>  
             </div>   
             <div className={styles.input_box}>
               <label htmlFor=""></label>
               <input type="password" placeholder="한번 더 입력하자"
               onChange={this.inputPWCheckChange}
-                  defaultValue={input.checkPW} />  
+                  value={input.checkPW} />  
               <div>
                 <span style={{color:flag.passwordCheckFlag?'green':'red'}}>
                 {flag.passwordCheckFlag?'확인되었습니다':'비번 확인해주세요'}
@@ -222,12 +223,12 @@ class Join extends Component{
             <div className={styles.input_box}>
               <label htmlFor="userName">이름</label>
               <input type="text" placeholder="이름" id="userName"
-                  defaultValue={input.userName} onChange={this.inputName}/>  
+                  value={input.userName} onChange={this.inputName}/>  
             </div>   
             <div className={styles.input_box}>
               <label htmlFor="userBirth">생년월일</label>
               <input type="date" id="userBirth" min="2000-01-01"
-                 defaultValue={input.userBirth} onChange={this.userBirth}/>  
+                 value={input.userBirth} onChange={this.userBirth}/>  
             </div>
             <span style={{color:flag.signupCheckFlag?'green':'red'}}>
               {flag.signupCheckFlag?"모든 입력값 확인되었습니다.":"입력값을 전부 입력하세요."}

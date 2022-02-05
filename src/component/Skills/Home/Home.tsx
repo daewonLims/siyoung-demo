@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import {Props} from '../../Nav/index';
 // import './App.css';
 
 class Home extends Component {
