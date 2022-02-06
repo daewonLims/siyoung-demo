@@ -8,3 +8,8 @@ export interface Props {
     };
     [key:string]:any;
 }
+export interface State {
+    menuToggle: boolean;
+    menus:any;
+    [key:string]:any;
+}

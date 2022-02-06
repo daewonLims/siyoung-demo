@@ -11,7 +11,12 @@ class App extends Component {
   render(){
     return (
       <BrowserRouter>
-          <Nav />
+          <Nav userInfo={{
+          id: "",
+          password: "",
+          userName: "",
+          userBirth: ""
+        }} />
           <Routes>
             <Route path="/" element={<Signin />} />
             <Route path="/Home" element={<Home />} />

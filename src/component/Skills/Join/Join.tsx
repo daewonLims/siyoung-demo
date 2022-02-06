@@ -39,7 +39,6 @@ class Join extends Component<Props, State>{
       },
       flag:{
         passwordCheckFlag:false,
-        signupCheckFlag:false,
       }
     }
   }
@@ -95,25 +94,7 @@ class Join extends Component<Props, State>{
         })
       }
   }
-  //비번 중복확인
-  overPWCheck = (inputPW?:string, inputPWCheck?:string) => {
-    // console.log("들어오는 값 확인 ::"+ inputPWCheck)
-    if (inputPW !==inputPWCheck) {
-      alert("비번 두개 다르다.")
-      this.setState({
-        flag:{
-          passwordCheckFlag:false,
-        }
-      })
-    } else {
-      //password check true
-      this.setState({
-        flag:{
-          passwordCheckFlag:true,
-        }
-      })
-    }
-  }
+  
   //이름 받기
   inputName=(e:any)=>{
     console.log(e.target.value)
@@ -174,6 +155,7 @@ class Join extends Component<Props, State>{
         //setState는 함수의 가장 마지막에서만 사용할것 -> 나중에 찾아봐 마지막에 쓰는 이유
         console.log("유저인포 :::"+ this.state.input.id + this.state.userInfo.password 
         +this.state.userInfo.userName+ this.state.userInfo.userBirth);
+        window.location.replace('/home')
       })
     }
     
