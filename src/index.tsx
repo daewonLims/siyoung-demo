@@ -1,14 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
-import App from './component/App';
+import App from './component/App/App'
 import reportWebVitals from './reportWebVitals';
 // import { createStore } from 'redux';
 // import { reducer } from './lib/store';
 
 render(
   <React.StrictMode>
-    <App />
+    <App userInfo={{
+      id: '',
+      password: ''
+    }} />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-// import {Props} from '../../Nav/index';
+import {Props} from '../../Nav/index';
 // import './App.css';
 
-class Home extends Component {
-  // constructor(props:any){
-  //   super(props)
-  // }
+class Login extends Component<Props> {
+  constructor(props:Props){
+    super(props)
+  }
   
   /* id password state값 으로 정의 */
   state = {
@@ -37,6 +37,7 @@ class Home extends Component {
   }
   /* 로그인 버튼 클릭 ==> onClick */
   appClick = () => {
+    const { userLoginEvent } = this.props;
     // let text = e.target.value
     console.log('input::',this.state.input)
     this.setState({
@@ -47,7 +48,9 @@ class Home extends Component {
       input:{id:'',password:''}
     },()=>{
       console.log(`id는 : ${this.state.userInfo.id}\npw는 : ${this.state.userInfo.password}`);
-      document.getElementById('loginForm')?.setAttribute('hidden','true')
+      // document.getElementById('loginForm')?.setAttribute('hidden','true')
+      //로그인 후 콜백으로 props 업데이트해서 정보 넘겨주기 - 1
+      userLoginEvent(this.state.userInfo.id, this.state.userInfo.password)
     })
     
   }
@@ -80,4 +83,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Login;
