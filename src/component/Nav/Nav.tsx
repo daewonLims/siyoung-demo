@@ -1,9 +1,7 @@
 // import react from "react";
 import { Component } from "react";
 import { State,Props } from ".";
-// import style from "../Nav/Nav.module.scss"
-// import {  BrowserRouter as Router } from "react-router-dom";
-import NavItem from "./navItem";
+import {Link} from "react-router-dom";
 
 class Nav extends Component<Props, State> {
   constructor(props: Props){
@@ -12,7 +10,7 @@ class Nav extends Component<Props, State> {
       menuToggle:false,
       menus:[
         { name: "Main", address: "/"}, 
-        { name: "Home", address: "/Home"},
+        { name: "Login", address: "/Login"},
         { name: "Ex01", address: "/Ex01"},
         { name: "Join", address: "/Join"}
       ]
@@ -21,18 +19,23 @@ class Nav extends Component<Props, State> {
   useStateMenuToggle = (flag:boolean) => {
     this.setState({menuToggle:flag})
   }
+
+  navItem = ( data, index ) => {
+    const {name, address} = data; 
+    return (
+      <Link key={index} to={`${address}`} className="menu__item" 
+        onClick={() => this.useStateMenuToggle(false)}>
+        {name}
+      </Link>
+    )
+  }
+
   render () {
     const {menus} = this.state;
     return(
       <div className="menu__list">
-        {/* {userId && userId+'님 로그인중...'} */}
-        { menus?.map((data) => (
-          <NavItem
-            data={data}
-            key={data.address}
-            offNav={() => this.useStateMenuToggle(false)}
-          />
-          ))}
+        { menus?.map((data, index) => this.navItem(data, index))
+        }
       </div>
     )
   }

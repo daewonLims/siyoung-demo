@@ -19,7 +19,7 @@ class App extends Component {
         }} />
           <Routes>
             <Route path="/" element={<Signin />} />
-            <Route path="/Home" element={<Home />} />
+            <Route path="/Login" element={<Home />} />
             <Route path="/Ex01" element={<Ex01 />} />
             <Route path="/Join" element={<Join userInfo={{
             id: "",
