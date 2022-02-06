@@ -69,21 +69,31 @@ class Join extends Component<Props, State>{
      })
    }
    inputPWCheckChange= (e:any) => {
-    this.setState({
-      input:{
-         id:this.state.input.id,
-         password:this.state.input.password,
-         checkPW:e.target.value,
-         userBirth:this.state.input.userBirth,
-         userName:this.state.input.userName
-       }
-    },()=>{
-      const pwLen = this.state.input.password.length
-      const checkPwLen = this.state.input.checkPW.length
-      if (pwLen === checkPwLen ) {
-        this.overPWCheck(this.state.input.password,this.state.input.checkPW)
+      let checkPW = e.target.value;
+      let originPW = this.state.input.password;
+      if ( checkPW !== originPW) {
+        this.setState({
+          input:{
+            id:this.state.input.id,
+            password:this.state.input.password,
+            checkPW:e.target.value,
+            userBirth:this.state.input.userBirth,
+            userName:this.state.input.userName
+          },
+          flag:{passwordCheckFlag:false}
+        })
+      } else {
+        this.setState({
+          input:{
+            id:this.state.input.id,
+            password:this.state.input.password,
+            checkPW:e.target.value,
+            userBirth:this.state.input.userBirth,
+            userName:this.state.input.userName
+          },
+          flag:{passwordCheckFlag:true}
+        })
       }
-    })
   }
   //비번 중복확인
   overPWCheck = (inputPW?:string, inputPWCheck?:string) => {
@@ -156,6 +166,9 @@ class Join extends Component<Props, State>{
         },
         input:{
           id:'',password:'',checkPW:'',userName:'',userBirth:''
+        },
+        flag:{
+          passwordCheckFlag:false
         }
       }, ()=> {
         //setState는 함수의 가장 마지막에서만 사용할것 -> 나중에 찾아봐 마지막에 쓰는 이유
@@ -188,9 +201,21 @@ class Join extends Component<Props, State>{
      
   }
   
+  allInputCheckFunction = () => {
+    const { id, password, checkPW, userName, userBirth } = this.state.input;
+    let checkFlag = false;
+    if ( id.trim() !== '' && password.trim() !== '' && checkPW.trim() !== '' && userName.trim() !== '' && userBirth.trim() !== '' ) {
+      checkFlag = true;
+    } else {
+      checkFlag = false;
+    }
+    return checkFlag;
+  }
 
   render(){
     const {input, flag} = this.state;
+    let allInputCheck = this.allInputCheckFunction;
+
     return(
       <form action="">
         <div className={styles.container}>
@@ -230,8 +255,8 @@ class Join extends Component<Props, State>{
               <input type="date" id="userBirth" min="2000-01-01"
                  value={input.userBirth} onChange={this.userBirth}/>  
             </div>
-            <span style={{color:flag.signupCheckFlag?'green':'red'}}>
-              {flag.signupCheckFlag?"모든 입력값 확인되었습니다.":"입력값을 전부 입력하세요."}
+            <span style={{color:allInputCheck()?'green':'red'}}>
+              {allInputCheck()?"모든 입력값 확인되었습니다.":"입력값을 전부 입력하세요."}
               </span>   
             <button type="button" className={styles.join_button}
                 onClick={this.joinUser}>회원가입 완료</button>
