@@ -31,7 +31,7 @@ class Nav extends Component<Props, State> {
   navItem = ( data, index ) => {
     const {name, address} = data; 
     return (
-      <Link key={index} to={`${address}`} className="menu__item" 
+      <Link id={index+'nav_items_id'} key={index} to={`${address}`} className="menu__item" 
         onClick={() => this.useStateMenuToggle(false)}>
         {name}
       </Link>
@@ -45,9 +45,10 @@ class Nav extends Component<Props, State> {
       <div className="menu__list">
         { menus?.map((data, index) => this.navItem(data, index))
         }
-        
+        {userInfo.id.trim() !=='' && (
           <div>{userInfo.id + '님이 로그인중입니다.'}</div>
-        
+        )}
+        <div></div>
       </div>
     )
   }

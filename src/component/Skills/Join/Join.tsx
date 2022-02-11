@@ -125,6 +125,7 @@ class Join extends Component<Props, State>{
   
   //회원가입 버튼 클릭
   joinUser=()=>{
+    const {joinUserEvent} = this.props;
     console.log("인풋값 ::: ", this.state.input);
     //나중에 입풋값들 유효성 체크
     console.log("생년월일 인풋값 ::"+this.state.input.userBirth);
@@ -155,7 +156,14 @@ class Join extends Component<Props, State>{
         //setState는 함수의 가장 마지막에서만 사용할것 -> 나중에 찾아봐 마지막에 쓰는 이유
         console.log("유저인포 :::"+ this.state.input.id + this.state.userInfo.password 
         +this.state.userInfo.userName+ this.state.userInfo.userBirth);
-        window.location.replace('/home')
+        
+        let userDataDump = {
+          id:this.state.userInfo.id,
+          password:this.state.userInfo.password,
+          name:this.state.userInfo.userName
+        }
+        joinUserEvent(userDataDump)
+        document.getElementById('1nav_items_id')?.click();
       })
     }
     

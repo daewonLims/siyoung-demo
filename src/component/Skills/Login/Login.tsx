@@ -40,18 +40,18 @@ class Login extends Component<Props> {
     const { userLoginEvent } = this.props;
     // let text = e.target.value
     console.log('input::',this.state.input)
-    this.setState({
-      userInfo:{
-        id:this.state.input.id,
-        password: this.state.input.password
-      },
-      input:{id:'',password:''}
-    },()=>{
-      console.log(`id는 : ${this.state.userInfo.id}\npw는 : ${this.state.userInfo.password}`);
-      // document.getElementById('loginForm')?.setAttribute('hidden','true')
-      //로그인 후 콜백으로 props 업데이트해서 정보 넘겨주기 - 1
-      userLoginEvent(this.state.userInfo.id, this.state.userInfo.password)
-    })
+    let result = userLoginEvent(this.state.input.id, this.state.input.password)
+    if (result) {
+      this.setState({
+        userInfo:{
+          id:this.state.input.id,
+          password: this.state.input.password
+        },
+        input:{id:'',password:''}
+      },()=>{
+        document.getElementById('0nav_items_id')?.click();
+      })
+    }
     
   }
   appKeyPress = (e:any) => {
@@ -60,7 +60,7 @@ class Login extends Component<Props> {
     }
   }
   render() {
-    const { userInfo, input } = this.state;
+    const { input } = this.state;
     const { appClick, appKeyPress, inputIDChange, inputPWChange } = this;
     return (
       <div className="App">
@@ -75,8 +75,8 @@ class Login extends Component<Props> {
           />
           <button onClick={appClick}>로그인</button>
         </header>
-        { userInfo.id &&
-         <h2>{userInfo.id}님 환영합니다.</h2> }
+        { this.props.userInfo.id &&
+         <h2>{this.props.userInfo.id}님 환영합니다.</h2> }
 
       </div>
     );
