@@ -12,8 +12,9 @@ class Nav extends Component<Props, State> {
       menus:[
         { name: "Main", address: "/"}, 
         { name: "Login", address: "/Login"},
-        { name: "Ex01", address: "/Ex01"},
-        { name: "Join", address: "/Join"}
+        // { name: "Ex01", address: "/Ex01"},
+        { name: "Join", address: "/Join"},
+        { name: "Board", address: "/Board"}
       ],     
       userInfo:{
         id:'',

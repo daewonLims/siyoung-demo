@@ -10,7 +10,8 @@ render(
   <React.StrictMode>
     <App userInfo={{
       id: '',
-      password: ''
+      password: '',
+      user_name: ''
     }} dumyData={[]} />
   </React.StrictMode>,
   document.getElementById('root')

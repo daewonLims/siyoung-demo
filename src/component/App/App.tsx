@@ -3,14 +3,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Signin  from "../Skills/Signin/Signin";
 import Nav  from '../Nav/Nav' 
-import Ex01 from '../Skills/Ex01'
 import Join from "../Skills/Join/Join";
+import Board from "../Skills/Board"
 import Login from "component/Skills/Login";
 import { Props, DumyUser } from "component/Nav";
 interface State {
   userInfo:{
     id:string,
     password:string,
+    user_name:string,
   },
   dumyData: DumyUser[],
   [key:string]:any;
@@ -21,7 +22,8 @@ class App extends Component<Props, State> {
     this.state={
       userInfo:{
         id:'',
-        password:''
+        password:'',
+        user_name:''
       },
       dumyData:[],
     }
@@ -56,11 +58,15 @@ class App extends Component<Props, State> {
           console.log(i,'pw false')
         } else {
           // id pw true
-          return true
+          let dump_user=this.state.dumyData[i]
+          return [true,
+            dump_user.user_id,
+            dump_user.user_password,
+            dump_user.user_name]
         }
       };//if end
     };//for end
-    return false;
+    return [false];
   }
 
   loginUser = (id :string , password: string) => {
@@ -73,14 +79,17 @@ class App extends Component<Props, State> {
       if (!id || !password) {
         return false;
       } else {
-        let check_val = false;
+        let check_val = [false,'','',''];
         check_val= this.user_check_validation(id,password);
         console.log(check_val)
-        if (!check_val) {
+        if (!check_val[0]) {
           alert('id와 비번을 다시 확인해주세요.');
           return false;
         } else {
-          this.setState({ userInfo:{id:id, password:password} })
+          let userId=check_val[1].toString()
+          let userPw=check_val[2].toString()
+          let userName=check_val[3].toString()
+          this.setState({ userInfo:{id:userId, password:userPw, user_name:userName} })
           return true;
         };//if end
       }
@@ -94,19 +103,27 @@ class App extends Component<Props, State> {
           <Nav userInfo={{
           id: this.state.userInfo.id,
           password: this.state.userInfo.password,
+          user_name: this.state.userInfo.user_name
         }} />
           <Routes>
             <Route path="/" element={<Signin />} />
             <Route path="/Login" 
               element={<Login userInfo={{
                 id: "",
-                password: ""
+                password: "",
+                user_name: ""
               }} userLoginEvent={this.loginUser} dumyData={this.state.dumyData} />} />
-            <Route path="/Ex01" element={<Ex01 />} />
+            
             <Route path="/Join" element={<Join userInfo={{
             id: "",
             password: "",
+            user_name: ""
           }} joinUserEvent={this.joinUser} dumyData={this.state.dumyData}/>} />
+            <Route path="/Board" element={<Board userInfo={{
+            id: this.state.userInfo.id,
+            password: this.state.userInfo.password,
+            user_name: this.state.userInfo.user_name
+          }} />} />
           </Routes>
         </BrowserRouter>
     );

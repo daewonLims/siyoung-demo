@@ -3,6 +3,7 @@ export interface Props {
     userInfo:{
         id:string,
         password:string,
+        user_name:string,
     };
     dumyData?: DumyUser[];
     [key:string]:any;

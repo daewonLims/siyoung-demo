@@ -1,23 +1,42 @@
 import React, { Component } from 'react';
 import {Props} from '../../Nav/index';
 // import './App.css';
-
-class Login extends Component<Props> {
+interface State {
+  input:{
+    id:string,
+    password:string,
+  },
+  userInfo:{
+    id:string,
+    password:string,
+  }
+}
+class Login extends Component<Props, State> {
   constructor(props:Props){
     super(props)
+    this.state={
+      input:{
+        id:'',
+        password:'',
+      },
+      userInfo:{
+        id:'',
+        password:'',
+      }
+    }
   }
   
   /* id password state값 으로 정의 */
-  state = {
-    input:{
-      id:'',
-      password:'',
-    },
-    userInfo:{
-      id:'',
-      password:'',
-    }
-  }
+  // state = {
+  //   input:{
+  //     id:'',
+  //     password:'',
+  //   },
+  //   userInfo:{
+  //     id:'',
+  //     password:'',
+  //   }
+  // }
   /* input value 변경 ==> onChange */
   inputIDChange = (e:any) => {
     this.setState({
