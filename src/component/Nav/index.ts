@@ -20,3 +20,13 @@ export interface DumyUser {
     user_name: string;
     user_birth: string;
 }
+
+export interface DumyBoard {
+    boardForm:{
+        boardIndex:number;
+        boardTitle:string;
+        boardContent:string;
+        boardUserName:string;
+        boardWriteDate:string;
+    }
+}

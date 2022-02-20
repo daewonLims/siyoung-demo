@@ -25,7 +25,12 @@ class App extends Component<Props, State> {
         password:'',
         user_name:''
       },
-      dumyData:[],
+      dumyData:[{
+        user_id:'123',
+        user_password:'123',
+        user_name:'tester',
+        user_birth:''
+      }],
     }
   }
   joinUser = (userData:{id:string, password:string, name:string, birth?:string}) => {
