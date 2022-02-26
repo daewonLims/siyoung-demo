@@ -71,7 +71,7 @@ class Login extends Component<Props, State> {
         document.getElementById('0nav_items_id')?.click();
       })
     }
-    
+
   }
   appKeyPress = (e:any) => {
     if (e.key === 'Enter') {
