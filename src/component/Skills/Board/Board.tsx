@@ -126,31 +126,14 @@ class Board extends Component<Props, State>{
   // 값 받아오기
   currentDate = () => {
     let newDate = new Date();
-    let todayStr = newDate.toString();
     let year = newDate.getFullYear();
     const WEEKDAY = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     let day = WEEKDAY[newDate.getDay()];
-    let month = todayStr.slice(4, 7);
+    let month = newDate.getMonth()<10? `0${newDate.getMonth()+1}`:`${newDate.getMonth()+1}`
     let date = newDate.getDate();
     let hour = String(newDate.getHours()).padStart(2,"0");
-    // let hms = ''
-    // if ( hour <10 ) {
-    //   hms = '0'+hour.toString() + ':'
-    // } else {
-    //   hms = hour.toString()+':'
-    // }
     let min = String(newDate.getMinutes()).padStart(2,"0");
-    // if (min < 10) {
-    //   hms += '0'+min.toString() + ':'
-    // } else {
-    //   hms += min.toString()+ ':'
-    // }
     let sec = String(newDate.getSeconds()).padStart(2,"0");
-    // if (sec<10) {
-    //   hms += '0' + sec.toString();
-    // } else {
-    //   hms += sec.toString();
-    // }
     let hms = `${hour}:${min}:${sec}`
     let currentDay = year.toString()+month+date.toString()+day+'_';
     let currentTime = currentDay + hms
@@ -213,51 +196,41 @@ class Board extends Component<Props, State>{
         boardWrite:{
           board_write_title:'',
           board_write_content:''
-        }
+        },
+        div_control:0
       })
     })
   }
   //게시글 수정의 글수정 버튼
   onClcikBoardUpdateButton= (e:any)=>{
     e.preventDefault();
-    //값을 가져온 배열의 렝쓰와 값을 받은 변수가 필요하다
-    // dumyBoardUpdate 여기에 업데이트와 타이틀의 벨류값이 저장되어있다
-    // DumyBoards 여기에 보더쓰기에서 받은 타이틀 컨텐츠 넣기(보더 index에) 
     let dumyBoardUpdate = this.state.dumyBoardUpdate;
-    console.log(dumyBoardUpdate.boardIndex); //보더 업데이트에서 넣은 값의 인덱스
     let dumyBoardForm = this.state.DumyBoards;
-    console.log(dumyBoardForm.length);//기존에 있던 배열의 총 길이
-    //BoardUpdate에 보더 폼에서 정해진 이값들을 기존 배열의 값과 바꿔주자
-    let boardIndex= dumyBoardUpdate.boardIndex; //보더폼에서 보더 업데이트로 넘긴 인덱스
-    let boardTitle= dumyBoardUpdate.boardTitle; //온체인지로 바뀐 스테이트 타이틀
-    let boardContent= dumyBoardUpdate.boardContent; //온체인지로 바뀐 스테이트 컨텐츠
-    let boardUserName= dumyBoardUpdate.boardUserName; //어차피 유저이름 공유
-    let boardWriteDate=  this.currentDate(); //시간을 바꿔줘
-    console.log("최종 set할 변수 ::: ",boardIndex, boardTitle, boardContent, boardUserName, boardWriteDate)
-
-    let dumpBoard:DumyBoard = {
-      boardForm:{
-        boardIndex:boardIndex,
-        boardTitle:boardTitle,
-        boardContent:boardContent,
-        boardUserName:boardUserName,
-        boardWriteDate:boardWriteDate,
+    
+    let dumyBoardFormCopy = dumyBoardForm.filter((dumpValue, i)=>{
+      console.log(dumyBoardUpdate)
+      if ( dumyBoardUpdate.boardIndex === i ) {
+        dumpValue.boardForm.boardIndex = dumyBoardUpdate.boardIndex;
+        dumpValue.boardForm.boardTitle = dumyBoardUpdate.boardTitle;
+        dumpValue.boardForm.boardContent = dumyBoardUpdate.boardContent;
+        dumpValue.boardForm.boardUserName = dumyBoardUpdate.boardUserName;
+        dumpValue.boardForm.boardWriteDate = this.currentDate();
       }
-    }
-
-    //i=0 이고 기존있던 배열의 렝스만큼 i값을 증가 시켜 증가 시키다가 보더 업데이트에서 넣은 인덱스 값과 보더렝스 값이 같아지면 셑
-    for(let i=0; i<=dumyBoardForm.length-1; i++){
-      console.log(dumyBoardForm[i]);
-      if(dumyBoardUpdate.boardIndex == i ){
-        console.log("같은 값이 나왔다.",i)
-         dumyBoardForm.splice(dumyBoardUpdate.boardIndex, 1, dumpBoard);//보더 업데이트의 인덱스의 데이터 하나삭제하고 다시 변경값 추가
-         this.setState({
-          DumyBoards:dumyBoardForm
-         })
-      }
-    }
-    console.log("함수 진행 후 결과1 :::",dumyBoardForm);
-    console.log("함수 진행 후 결과2 :::",this.state.DumyBoards);
+      console.log(dumpValue)
+      return dumpValue
+    })
+    console.log('더미 보드 폼 생성 ::',dumyBoardFormCopy)
+    this.setState({
+      DumyBoards:dumyBoardFormCopy,
+      dumyBoardUpdate:{
+        boardIndex:0,
+        boardTitle:'',
+        boardContent:'',
+        boardUserName:'',
+        boardWriteDate:''
+      },
+      div_control:0
+    });
   }
 
   render(){
@@ -270,8 +243,8 @@ class Board extends Component<Props, State>{
                 onClick={()=>this.onClick_Control(0)}>Board</div>
             <div className={styles.control_button} 
                 onClick={()=>this.onClick_Control(1)}>Write</div>
-            <div className={styles.control_button} 
-                onClick={()=>this.onClick_Control(2)}>Update</div>
+            {/* <div className={styles.control_button} 
+                onClick={()=>this.onClick_Control(2)}>Update</div> */}
         </div>
         <div>
             {div_control===0 && (
@@ -293,19 +266,19 @@ class Board extends Component<Props, State>{
                 />
             )}
             {div_control===2 && (
-                <BoardUpdate dumyBoardUpdate={{
-              boardIndex: this.state.dumyBoardUpdate.boardIndex,
-              boardTitle: this.state.dumyBoardUpdate.boardTitle,
-              boardContent: this.state.dumyBoardUpdate.boardContent,
-              boardUserName: this.state.dumyBoardUpdate.boardUserName,
-              boardWriteDate: this.state.dumyBoardUpdate.boardWriteDate,
-            }} onChangeBoardUpdate={this.onChangeBoardUpdate}
-            onClcikBoardUpdateButton={this.onClcikBoardUpdateButton}
-             boardUpdate={{
-               board_update_title:this.state.dumyBoardUpdate.boardTitle,
-               board_update_content:this.state.dumyBoardUpdate.boardContent,
-              }}
-               />
+              <BoardUpdate dumyBoardUpdate={{
+                  boardIndex: this.state.dumyBoardUpdate.boardIndex,
+                  boardTitle: this.state.dumyBoardUpdate.boardTitle,
+                  boardContent: this.state.dumyBoardUpdate.boardContent,
+                  boardUserName: this.state.dumyBoardUpdate.boardUserName,
+                  boardWriteDate: this.state.dumyBoardUpdate.boardWriteDate,
+                }} onChangeBoardUpdate={this.onChangeBoardUpdate}
+                onClcikBoardUpdateButton={this.onClcikBoardUpdateButton}
+                boardUpdate={{
+                  board_update_title:this.state.dumyBoardUpdate.boardTitle,
+                  board_update_content:this.state.dumyBoardUpdate.boardContent,
+                }}
+              />
             )}
         </div>
     </div>

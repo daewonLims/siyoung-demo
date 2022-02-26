@@ -12,11 +12,11 @@ export const BoardForm: React.FC<BoardFormProps> = ({dumyBoards, onClickBoardFor
       {dumyBoards.map((board, i)=>{
         return(
           <div key={i}>
-            <div>{board.boardForm.boardIndex}</div>
-            <div>{board.boardForm.boardTitle}</div>
-            <div>{board.boardForm.boardContent}</div>
-            <div>{board.boardForm.boardUserName}</div>
-            <div>{board.boardForm.boardWriteDate}</div>
+            <div>{`게시글 번호 : ${board.boardForm.boardIndex+1}`}</div>
+            <div>{`게시글 제목 : ${board.boardForm.boardTitle}`}</div>
+            <div>{`게시글 내용 : ${board.boardForm.boardContent}`}</div>
+            <div>{`게시자 이름 : ${board.boardForm.boardUserName}`}</div>
+            <div>{`게시한 날짜 : ${board.boardForm.boardWriteDate}`}</div>
             <button type="button" onClick={(i) => {onClickBoardFormUpdateButton(i, board.boardForm)}} >수정하기</button>
           </div>
         )
