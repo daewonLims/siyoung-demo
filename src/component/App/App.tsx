@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Signin  from "../Skills/Signin/Signin";
 import Nav  from '../Nav/Nav' 
 import Join from "../Skills/Join/Join";
-import Board from "../Skills/Board"
+import Board from "../Skills/Board/Board"
 import Login from "component/Skills/Login";
 import { Props, DumyUser } from "component/Nav";
 interface State {

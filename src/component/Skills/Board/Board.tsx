@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styles from './Board.module.scss';
 import {Props} from '../../Nav/index';
 import { BoardUpdate,BoardWrite, BoardForm } from './components/';
-import {DumyBoard} from '../../Nav/index'
+import {DumyBoard} from '../../Nav/index';
 
 
 interface State {
@@ -32,6 +32,12 @@ interface State {
   },
   DumyBoards:DumyBoard[],
   div_control:0|1|2,
+  page_control:[],
+  paging:{
+    startIndex:number;
+    endIndex:number;
+    pageIndex:number;
+  }
   [key:string]:any;
 }
 class Board extends Component<Props, State>{
@@ -62,11 +68,285 @@ class Board extends Component<Props, State>{
         boardWriteDate:'',
       },
       //배열초기값
-      DumyBoards:[],
+      DumyBoards:[{
+        boardForm:{
+          boardIndex:0,
+          boardTitle:'1번',
+          boardContent:'1내용',
+          boardUserName:'user1',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:1,
+          boardTitle:'2번',
+          boardContent:'2내용',
+          boardUserName:'user2',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:2,
+          boardTitle:'3번',
+          boardContent:'3내용',
+          boardUserName:'user3',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:3,
+          boardTitle:'4번',
+          boardContent:'4내용',
+          boardUserName:'user4',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:4,
+          boardTitle:'5번',
+          boardContent:'5내용',
+          boardUserName:'user5',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:5,
+          boardTitle:'6번',
+          boardContent:'6내용',
+          boardUserName:'user6',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:6,
+          boardTitle:'7번',
+          boardContent:'7내용',
+          boardUserName:'user7',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:7,
+          boardTitle:'8번',
+          boardContent:'8내용',
+          boardUserName:'user8',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:8,
+          boardTitle:'9번',
+          boardContent:'9내용',
+          boardUserName:'user9',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:9,
+          boardTitle:'10번',
+          boardContent:'10내용',
+          boardUserName:'user10',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:10,
+          boardTitle:'11번',
+          boardContent:'11내용',
+          boardUserName:'user11',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:11,
+          boardTitle:'12번',
+          boardContent:'12내용',
+          boardUserName:'user12',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:12,
+          boardTitle:'13번',
+          boardContent:'13내용',
+          boardUserName:'user13',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:13,
+          boardTitle:'14번',
+          boardContent:'14내용',
+          boardUserName:'user14',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:14,
+          boardTitle:'15번',
+          boardContent:'15내용',
+          boardUserName:'user15',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:15,
+          boardTitle:'16번',
+          boardContent:'16내용',
+          boardUserName:'user16',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:16,
+          boardTitle:'17번',
+          boardContent:'17내용',
+          boardUserName:'user17',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:17,
+          boardTitle:'18번',
+          boardContent:'18내용',
+          boardUserName:'user18',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:18,
+          boardTitle:'19번',
+          boardContent:'19내용',
+          boardUserName:'user19',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:19,
+          boardTitle:'20번',
+          boardContent:'20내용',
+          boardUserName:'user20',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:20,
+          boardTitle:'21번',
+          boardContent:'21내용',
+          boardUserName:'user21',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:21,
+          boardTitle:'22번',
+          boardContent:'22내용',
+          boardUserName:'user22',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:22,
+          boardTitle:'23번',
+          boardContent:'23내용',
+          boardUserName:'user23',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:23,
+          boardTitle:'24번',
+          boardContent:'24내용',
+          boardUserName:'user24',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:24,
+          boardTitle:'25번',
+          boardContent:'25내용',
+          boardUserName:'user25',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:25,
+          boardTitle:'26번',
+          boardContent:'26내용',
+          boardUserName:'user26',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:26,
+          boardTitle:'27번',
+          boardContent:'27내용',
+          boardUserName:'user27',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:27,
+          boardTitle:'28번',
+          boardContent:'28내용',
+          boardUserName:'user28',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:28,
+          boardTitle:'29번',
+          boardContent:'29내용',
+          boardUserName:'user29',
+          boardWriteDate:'',
+        },
+      },
+      {
+        boardForm:{
+          boardIndex:29,
+          boardTitle:'30번',
+          boardContent:'30내용',
+          boardUserName:'user30',
+          boardWriteDate:'',
+        },
+      },
+    ],
       div_control:0,
-      flag:{
-        passwordCheckFlag:false,
+      page_control:[],
+      paging:{
+        startIndex:0,
+        endIndex:0,
+        pageIndex:0,
       }
+      
     }
   }
   onClick_Control = (flag:0|1|2) => {
@@ -189,7 +469,8 @@ class Board extends Component<Props, State>{
     dumyBoardForm.push(dumpBoard);
     console.log('set before ::',dumyBoardForm)
     this.setState({
-      DumyBoards:dumyBoardForm
+      DumyBoards:dumyBoardForm,
+      div_control:0
     },()=>{
       console.log('after::',this.state.DumyBoards)
       this.setState({
@@ -197,7 +478,6 @@ class Board extends Component<Props, State>{
           board_write_title:'',
           board_write_content:''
         },
-        div_control:0
       })
     })
   }
@@ -208,7 +488,7 @@ class Board extends Component<Props, State>{
     let dumyBoardForm = this.state.DumyBoards;
     
     let dumyBoardFormCopy = dumyBoardForm.filter((dumpValue, i)=>{
-      console.log(dumyBoardUpdate)
+      // console.log(dumyBoardUpdate)
       if ( dumyBoardUpdate.boardIndex === i ) {
         dumpValue.boardForm.boardIndex = dumyBoardUpdate.boardIndex;
         dumpValue.boardForm.boardTitle = dumyBoardUpdate.boardTitle;
@@ -216,7 +496,7 @@ class Board extends Component<Props, State>{
         dumpValue.boardForm.boardUserName = dumyBoardUpdate.boardUserName;
         dumpValue.boardForm.boardWriteDate = this.currentDate();
       }
-      console.log(dumpValue)
+      // console.log("필터의 :: ",dumpValue)
       return dumpValue
     })
     console.log('더미 보드 폼 생성 ::',dumyBoardFormCopy)
@@ -233,9 +513,24 @@ class Board extends Component<Props, State>{
     });
   }
 
+  pagingC = (dumyBoards:DumyBoard[]) => {
+    let boardPageIndex = (dumyBoards.length - 1)/10;//page count -> 페이지 
+    let boardPageStart = boardPageIndex * 10 - 10;//0
+    let boardPageEnd = boardPageIndex * 10;//9
+    this.setState({
+      paging:{
+        startIndex:boardPageStart,
+        endIndex:boardPageEnd,
+        pageIndex:boardPageIndex
+      }
+    })
+  }
+
   render(){
-    const {div_control} = this.state;
+    const {div_control, DumyBoards,paging } = this.state;
+    // {DumyBoards && DumyBoards.map((value, i) => value.boardForm.boardIndex)}
     
+
     return(
       <div>
         <div>
@@ -248,7 +543,8 @@ class Board extends Component<Props, State>{
         </div>
         <div>
             {div_control===0 && (
-                <BoardForm dumyBoards={this.state.DumyBoards}
+                <BoardForm dumyBoards={DumyBoards}
+                paging = {paging}
                 onClickBoardFormUpdateButton={this.onClickBoardFormUpdateButton} />
             )}
             {div_control===1 && (
