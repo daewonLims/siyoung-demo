@@ -7,3 +7,19 @@
     cursor: pointer;
     margin-left: 10px;
 }
+
+.pageNavi {
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    margin:0;
+    background: black;
+    color: white;
+    font-size: 1rem;
+
+    &:hover {
+        background: skyblue;
+        cursor: pointer;
+        transform: translate(-2px);
+    }
+}

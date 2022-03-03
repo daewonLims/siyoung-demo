@@ -34,10 +34,11 @@ interface State {
   div_control:0|1|2,
   page_control:[],
   paging:{
-    startIndex:number;
-    endIndex:number;
-    pageIndex:number;
-  }
+    limit:number;
+    page:number;
+    offset:any;
+  },
+  numPages:number[],
   [key:string]:any;
 }
 class Board extends Component<Props, State>{
@@ -342,11 +343,11 @@ class Board extends Component<Props, State>{
       div_control:0,
       page_control:[],
       paging:{
-        startIndex:0,
-        endIndex:0,
-        pageIndex:0,
-      }
-      
+        limit:10,
+        page:1,
+        offset:0,
+      },
+      numPages:[],
     }
   }
   onClick_Control = (flag:0|1|2) => {
@@ -513,21 +514,31 @@ class Board extends Component<Props, State>{
     });
   }
 
-  pagingC = (dumyBoards:DumyBoard[]) => {
-    let boardPageIndex = (dumyBoards.length - 1)/10;//page count -> 페이지 
-    let boardPageStart = boardPageIndex * 10 - 10;//0
-    let boardPageEnd = boardPageIndex * 10;//9
+  setPagiNavState = (limit, page) => {
+    let offset_dump = ( page - 1 ) * limit;
     this.setState({
       paging:{
-        startIndex:boardPageStart,
-        endIndex:boardPageEnd,
-        pageIndex:boardPageIndex
+        limit:limit,
+        page:page,
+        offset:offset_dump
       }
     })
   }
 
+  componentDidMount() {
+
+      let limit = this.state.paging.limit;
+      let total = this.state.DumyBoards.length;
+      let numPages = Math.ceil(total/limit);
+      let arr = Array(numPages).fill(0)
+      this.setState({
+        numPages:arr
+      })
+    
+  }
+
   render(){
-    const {div_control, DumyBoards,paging } = this.state;
+    const {div_control, DumyBoards,paging,numPages } = this.state;
     // {DumyBoards && DumyBoards.map((value, i) => value.boardForm.boardIndex)}
     
 
@@ -545,6 +556,8 @@ class Board extends Component<Props, State>{
             {div_control===0 && (
                 <BoardForm dumyBoards={DumyBoards}
                 paging = {paging}
+                last={numPages.length}
+                setPagiNavState = {this.setPagiNavState}
                 onClickBoardFormUpdateButton={this.onClickBoardFormUpdateButton} />
             )}
             {div_control===1 && (
