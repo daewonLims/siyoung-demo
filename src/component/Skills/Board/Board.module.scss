@@ -22,4 +22,24 @@
         cursor: pointer;
         transform: translate(-2px);
     }
+    &[disabled] {
+        background: grey;
+        cursor: revert;
+        transform: revert;
+    }
+
+    &[aria-current] {
+        background: rgb(57, 54, 224);
+        font-weight: bold;
+        cursor: revert;
+        transform: revert;
+    }
+}
+
+.pageNavWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin: 16px;
 }

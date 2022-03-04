@@ -1,5 +1,6 @@
 import React from "react"
 import {DumyBoard} from '../../../Nav/index'
+import style from '../Board.module.scss'
 
 type BoardFormProps = {
   dumyBoards:DumyBoard[];
@@ -9,11 +10,12 @@ type BoardFormProps = {
     offset:any;
   };
   last:number;
+  numPageNavi:number[];
   setPagiNavState:Function;
   onClickBoardFormUpdateButton:Function;
 };
 
-export const BoardForm: React.FC<BoardFormProps> = ({dumyBoards,paging,last, setPagiNavState, onClickBoardFormUpdateButton  }) => {
+export const BoardForm: React.FC<BoardFormProps> = ({dumyBoards,paging,numPageNavi,last, setPagiNavState, onClickBoardFormUpdateButton  }) => {
 
   return(
     <div>
@@ -29,20 +31,28 @@ export const BoardForm: React.FC<BoardFormProps> = ({dumyBoards,paging,last, set
               </div>
             )
         })}
-        <div>
-          <button onClick={()=>{
+        <div className={style.pageNavWrap}>
+          <button className={style.pageNavi} onClick={()=>{
             //page -1
             setPagiNavState(paging.limit, (paging.page-1))
-          }} disabled={paging.page===1?true:false}>{'이전'}</button>
-          <button onClick={()=>{
+          }} disabled={paging.page===1?true:false}>{'<'}</button>
+          {numPageNavi.map((__,i)=>{
+            return(
+              <button key={i} className={style.pageNavi}
+              aria-current={paging.page === i + 1 ? "page" : undefined}
+                onClick={()=>{
+                  setPagiNavState(paging.limit, (i+1))
+              }}>{i+1}</button>
+            )
+          })}
+          <button className={style.pageNavi} onClick={()=>{
             //page +1
             setPagiNavState(paging.limit, (paging.page+1))
-          }} disabled={paging.page===last?true:false}>{'다음'}</button>
+          }} disabled={paging.page===last?true:false}>{'>'}</button>
         </div>
     </div>
   );
 }
-
   // BoardFormProps.defaultProps = {
   // };
     

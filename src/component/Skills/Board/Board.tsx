@@ -5,7 +5,6 @@ import {Props} from '../../Nav/index';
 import { BoardUpdate,BoardWrite, BoardForm } from './components/';
 import {DumyBoard} from '../../Nav/index';
 
-
 interface State {
   input:{
   };
@@ -41,6 +40,7 @@ interface State {
   numPages:number[],
   [key:string]:any;
 }
+
 class Board extends Component<Props, State>{
   constructor(props:Props) {
     super(props);
@@ -350,12 +350,14 @@ class Board extends Component<Props, State>{
       numPages:[],
     }
   }
+
   onClick_Control = (flag:0|1|2) => {
       this.setState({
           div_control:flag
       })
       console.log("프롭스 유저네임 ::: "+ this.props.userInfo.user_name);
   }
+
   //인풋 벨류값 온체인지 함수
   onChangeBoardWrite = (value:string, flag:boolean) =>{
    if (flag) {
@@ -378,6 +380,7 @@ class Board extends Component<Props, State>{
     })
    }
   }
+
   //업데이트에서 넘어온 데이터
   onChangeBoardUpdate = (value: string, flag:boolean ) => {
     if(flag){
@@ -404,6 +407,7 @@ class Board extends Component<Props, State>{
      }, ()=>{console.log(this.state.dumyBoardUpdate.boardContent)})
     }
   }
+
   // 값 받아오기
   currentDate = () => {
     let newDate = new Date();
@@ -448,6 +452,7 @@ class Board extends Component<Props, State>{
       }
     })
   }
+
   // 게시글쓰기 페이지의 버튼 클릭 이벤트
   onClickBoardWriteButton= (e:any)=>{
     e.preventDefault();
@@ -474,6 +479,8 @@ class Board extends Component<Props, State>{
       div_control:0
     },()=>{
       console.log('after::',this.state.DumyBoards)
+      //글 추가할 경우 후처리로 paging 변수 업데이트
+      this.pagingStateFunction();
       this.setState({
         boardWrite:{
           board_write_title:'',
@@ -482,6 +489,7 @@ class Board extends Component<Props, State>{
       })
     })
   }
+  
   //게시글 수정의 글수정 버튼
   onClcikBoardUpdateButton= (e:any)=>{
     e.preventDefault();
@@ -489,7 +497,6 @@ class Board extends Component<Props, State>{
     let dumyBoardForm = this.state.DumyBoards;
     
     let dumyBoardFormCopy = dumyBoardForm.filter((dumpValue, i)=>{
-      // console.log(dumyBoardUpdate)
       if ( dumyBoardUpdate.boardIndex === i ) {
         dumpValue.boardForm.boardIndex = dumyBoardUpdate.boardIndex;
         dumpValue.boardForm.boardTitle = dumyBoardUpdate.boardTitle;
@@ -497,7 +504,6 @@ class Board extends Component<Props, State>{
         dumpValue.boardForm.boardUserName = dumyBoardUpdate.boardUserName;
         dumpValue.boardForm.boardWriteDate = this.currentDate();
       }
-      // console.log("필터의 :: ",dumpValue)
       return dumpValue
     })
     console.log('더미 보드 폼 생성 ::',dumyBoardFormCopy)
@@ -514,6 +520,7 @@ class Board extends Component<Props, State>{
     });
   }
 
+  //page Navi Control
   setPagiNavState = (limit, page) => {
     let offset_dump = ( page - 1 ) * limit;
     this.setState({
@@ -522,26 +529,27 @@ class Board extends Component<Props, State>{
         page:page,
         offset:offset_dump
       }
-    })
+    });
   }
 
   componentDidMount() {
+    this.pagingStateFunction();
+  }
 
-      let limit = this.state.paging.limit;
-      let total = this.state.DumyBoards.length;
-      let numPages = Math.ceil(total/limit);
-      let arr = Array(numPages).fill(0)
-      this.setState({
-        numPages:arr
-      })
-    
+  //paging 변수 업데이트
+  pagingStateFunction = () => {
+    let limit = this.state.paging.limit;
+    let total = this.state.DumyBoards.length;
+    let numPages = Math.ceil(total/limit);
+    let arr = Array(numPages).fill(0);
+    this.setState({
+      numPages:arr
+    });
   }
 
   render(){
     const {div_control, DumyBoards,paging,numPages } = this.state;
-    // {DumyBoards && DumyBoards.map((value, i) => value.boardForm.boardIndex)}
     
-
     return(
       <div>
         <div>
@@ -556,6 +564,7 @@ class Board extends Component<Props, State>{
             {div_control===0 && (
                 <BoardForm dumyBoards={DumyBoards}
                 paging = {paging}
+                numPageNavi={numPages}
                 last={numPages.length}
                 setPagiNavState = {this.setPagiNavState}
                 onClickBoardFormUpdateButton={this.onClickBoardFormUpdateButton} />
