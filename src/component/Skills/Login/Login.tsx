@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Props} from '../../Nav/index';
+import style from './Login.module.scss';
 // import './App.css';
 interface State {
   input:{
@@ -78,25 +79,35 @@ class Login extends Component<Props, State> {
       this.appClick();
     }
   }
+  
+  componentDidMount = () => {
+    document.getElementById('id')?.focus();
+  }
   render() {
     const { input } = this.state;
     const { appClick, appKeyPress, inputIDChange, inputPWChange } = this;
     return (
-      <div className="App">
-        <header className="App-header" id="loginForm">
-          <input type="text" name="id" placeholder="아이디" defaultValue={input.id} onChange={inputIDChange} />
-          <input type="password"
-            name="password"
-            placeholder="비밀번호"
-            defaultValue={input.password}
-            onChange={inputPWChange}
-            onKeyPress={appKeyPress}
-          />
-          <button onClick={appClick}>로그인</button>
-        </header>
-        { this.props.userInfo.id &&
-         <h2>{this.props.userInfo.id}님 환영합니다.</h2> }
-
+      <div className={style.login_container}>
+          <div className={style.login_title}>
+            <h1>로 그 인</h1>    
+          </div>
+          <div className={style.login_inputID}>
+            <label htmlFor='id'>{'아이디'}</label>
+            <input type="text" id='id' name="id" placeholder="아이디" defaultValue={input.id} onChange={inputIDChange} />
+          </div>
+          <div className={style.login_inputPW}>
+            <label htmlFor='password'>{'비밀번호'}</label>
+            <input type="password" id='password'
+              name="password"
+              placeholder="비밀번호"
+              defaultValue={input.password}
+              onChange={inputPWChange}
+              onKeyPress={appKeyPress}
+            />
+          </div>
+          <div className={style.login_buttonWrap}>
+            <button className={style.login_button} onClick={appClick}>로그인</button>
+          </div>
       </div>
     );
   }

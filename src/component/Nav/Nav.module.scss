@@ -17,3 +17,53 @@ h1, p {
 .menu__list {
   background: #000;
 }
+
+.nav {
+  background-color: black;
+  padding: 10px 0px 0px 5px;
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
+}
+.nav_login {
+  display: inline-block;
+  color: ghostwhite;
+  height: fit-content;
+}
+.nav_links {
+  display: inline-block;
+  height: fit-content;
+}
+.navLink {
+  padding: 5px 5px 0 5px;
+  height: fit-content;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px 3px 0px 0px;
+  margin:0;
+  margin-left: 5px;
+  background: rgba(105, 90, 205, 0.548);
+  color: ghostwhite;
+  font-size: 1.1rem;
+  &:hover {
+      background: skyblue;
+      cursor: pointer;
+      transform: translate(-2px);
+  }
+  &[disabled] {
+      background: grey;
+      cursor: revert;
+      transform: revert;
+  }
+
+  &[aria-current] {
+      color: rgb(57, 54, 224);
+      background: ghostwhite;
+      font-weight: bold;
+      cursor: revert;
+      transform: revert;
+      
+  }
+  
+}

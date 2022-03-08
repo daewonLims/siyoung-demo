@@ -352,10 +352,29 @@ class Board extends Component<Props, State>{
   }
 
   onClick_Control = (flag:0|1|2) => {
+    const {userInfo} = this.props;
+    console.log("프롭스 유저네임 ::: "+ this.props.userInfo.user_name);
+
+    if (userInfo.id !== '') {
+      if (flag===1) {
+        this.setState({
+          boardWrite: {
+            board_write_title:'',
+            board_write_content:''
+          }
+        })
+      }
       this.setState({
-          div_control:flag
+        div_control:flag
+      }, () => {
+        if (flag===1) {
+          document.getElementById('boardWriteTitle')?.focus();
+        }
       })
-      console.log("프롭스 유저네임 ::: "+ this.props.userInfo.user_name);
+    } else {
+      alert('먼저 로그인을 해주세요.')
+      document.getElementById('1nav_items_id')?.click();
+    }
   }
 
   //인풋 벨류값 온체인지 함수
@@ -415,12 +434,12 @@ class Board extends Component<Props, State>{
     const WEEKDAY = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     let day = WEEKDAY[newDate.getDay()];
     let month = newDate.getMonth()<10? `0${newDate.getMonth()+1}`:`${newDate.getMonth()+1}`
-    let date = newDate.getDate();
+    let date = newDate.getDate()<10? `0${newDate.getDate()}`:`${newDate.getDate()}`;
     let hour = String(newDate.getHours()).padStart(2,"0");
     let min = String(newDate.getMinutes()).padStart(2,"0");
     let sec = String(newDate.getSeconds()).padStart(2,"0");
     let hms = `${hour}:${min}:${sec}`
-    let currentDay = year.toString()+month+date.toString()+day+'_';
+    let currentDay = year.toString()+month+date.toString()+'_'+day+'_';
     let currentTime = currentDay + hms
     return currentTime
   }
@@ -489,7 +508,7 @@ class Board extends Component<Props, State>{
       })
     })
   }
-  
+
   //게시글 수정의 글수정 버튼
   onClcikBoardUpdateButton= (e:any)=>{
     e.preventDefault();
