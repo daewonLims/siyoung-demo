@@ -43,3 +43,79 @@
     gap: 4px;
     margin: 16px;
 }
+
+.boardTable {
+    border: 1px #ccc solid;
+    max-width: 80vw;
+    min-width: 730px;
+    justify-content: center;
+    align-items: center;
+    margin:0 auto;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+}
+.boardTr {
+    border-bottom:solid 1px #ccc;
+    margin:5px 5px 5px 10px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 700px;
+    
+    > .boardIdx {
+        display: inline-flex;
+        width: 4vw;
+        min-width: 30px;
+        align-items: center;
+        justify-content: center;
+    }
+    > .boardTitle {
+        display: inline-flex;
+        width: 15vw;
+        min-width: 80px;
+        align-items: center;
+        justify-content:start;
+    }
+    > .boardContent {
+        display: inline-flex;
+        width: 30vw;
+        min-width: 240px;
+        align-items: center;
+        justify-content:start;
+    }
+    .boardUserName {
+        width: 5vw;
+        display: inline;
+        align-items: center;
+        justify-content:end;
+    }
+    > .boardDate {
+        width: 5vw;
+        display: inline;
+        align-items: center;
+        justify-content:end;
+    }
+    > button {
+        display: inline-block;
+        width:9vw;
+        min-width: 85px;
+        border: none;
+        border-radius: 8px;
+        padding: 8px;
+        margin:5px;
+        background: black;
+        color: white;
+        font-size: 1rem;
+    }
+    > .boardbuttons {
+        display: inline-flex;
+        width: 19vw;
+        min-width: 180px;
+        align-items: center;
+        justify-content: center;
+    }
+}

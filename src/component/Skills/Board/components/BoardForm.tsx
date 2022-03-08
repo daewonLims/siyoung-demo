@@ -19,18 +19,29 @@ export const BoardForm: React.FC<BoardFormProps> = ({dumyBoards,paging,numPageNa
 
   return(
     <div>
+      <div className={style.boardTable}>
+        <div className={style.boardTr}>
+          <div className={style.boardIdx}>{`No`}</div>
+          <div className={style.boardTitle}>{`Title`}</div>
+          <div className={style.boardContent}>{`Content`}</div>
+          <div className={style.boardUserName}>{`User`}</div>
+          <div className={style.boardDate}>{`Date`}</div>
+          <div className={style.boardbuttons}>{`tool`}</div>
+        </div>
         {dumyBoards.slice(paging.offset, paging.offset + paging.limit).map((board, i)=>{
             return(
-              <div key={i}>
-                <div>{`게시글 번호 : ${board.boardForm.boardIndex+1}`}</div>
-                <div>{`게시글 제목 : ${board.boardForm.boardTitle}`}</div>
-                <div>{`게시글 내용 : ${board.boardForm.boardContent}`}</div>
-                <div>{`게시자 이름 : ${board.boardForm.boardUserName}`}</div>
-                <div>{`게시한 날짜 : ${board.boardForm.boardWriteDate}`}</div>
+              <div key={i} className={style.boardTr}>
+                <div className={style.boardIdx}>{`${board.boardForm.boardIndex+1}`}</div>
+                <div className={style.boardTitle}>{`${board.boardForm.boardTitle}`}</div>
+                <div className={style.boardContent}>{`${board.boardForm.boardContent}`}</div>
+                <div className={style.boardUserName}>{`${board.boardForm.boardUserName}`}</div>
+                <div className={style.boardDate}>{`${board.boardForm.boardWriteDate}`}</div>
                 <button type="button" onClick={(i) => {onClickBoardFormUpdateButton(i, board.boardForm)}} >수정하기</button>
+                <button type="button"  >삭제하기</button>
               </div>
             )
         })}
+      </div>
         <div className={style.pageNavWrap}>
           <button className={style.pageNavi} onClick={()=>{
             //page -1
