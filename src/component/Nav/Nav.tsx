@@ -30,11 +30,22 @@ class Nav extends Component<Props, State> {
   }
 
   navItem = ( data, index ) => {
-    const {name, address} = data; 
+    const {name, address} = data;
+    //현제 페이지의 url로 메뉴 선택 css효과 사용
+    let currentUrlName = window.location.pathname;
+    // 로그인 중에 Login페이지 이동 막고, css효과 사용
+    let loginCheck = (name==="Login" && this.props.userInfo.id!=='')
     return (
-      <Link id={index+'nav_items_id'} key={index} to={`${address}`} className={style.navLink}
-        aria-current={this.state.currentPageIndex===index?"page":undefined}
-        onClick={() => this.useStateMenuToggle(false, index)}>
+      <Link id={index+'nav_items_id'} key={index} to={loginCheck?'#':`${address}`} className={style.navLink}
+        aria-current={currentUrlName===address?"page":undefined}
+        aria-readonly={loginCheck?true:undefined}
+        onClick={() => {
+          if ( loginCheck ) {
+            console.log('already login')
+          } else {
+            this.useStateMenuToggle(false, index)
+          }
+        }}>
         {name}
       </Link>
     )

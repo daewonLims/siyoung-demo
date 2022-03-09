@@ -13,14 +13,17 @@ type BoardFormProps = {
   numPageNavi:number[];
   setPagiNavState:Function;
   onClickBoardFormUpdateButton:Function;
+  onClickBoardDeleteButtonEvent:Function;
 };
 
-export const BoardForm: React.FC<BoardFormProps> = ({dumyBoards,paging,numPageNavi,last, setPagiNavState, onClickBoardFormUpdateButton  }) => {
+export const BoardForm: React.FC<BoardFormProps> = ({dumyBoards,paging,numPageNavi,last, 
+  setPagiNavState, onClickBoardFormUpdateButton, onClickBoardDeleteButtonEvent  }) => {
 // 최근 글부터 보이도록 업데이트
 // 기존 dumyBoards.length-paging.offset 를 startIdx로 할 경우 첫페이지 30~40이므로 limit (10개)를 빼준다.
 // 마지막 startIdx가 음수일 경우 map이 음수부터 시작하므로 반복문을 바로 빠져나옴. 그래서 음수 조건 추가시켜줌
 let startIdx = dumyBoards.length-paging.offset-paging.limit;
 let endIdx = dumyBoards.length-paging.offset + paging.limit-paging.limit;
+
   return(
     <div>
       <div className={style.boardTable}>
@@ -33,15 +36,17 @@ let endIdx = dumyBoards.length-paging.offset + paging.limit-paging.limit;
           <div className={style.boardbuttons}>{`tool`}</div>
         </div>
         {dumyBoards.slice(startIdx>0?startIdx:0, endIdx>0?endIdx:0).reverse().map((board, i)=>{
+          //한 페이지 안에서 가장 마지막 인덱스
+          let lastIndexinPage = dumyBoards.slice(startIdx>0?startIdx:0, endIdx>0?endIdx:0).length;
             return(
-              <div key={i} className={(paging.offset + paging.limit-1)===i?style.boardTrMax:style.boardTr} >
+              <div key={i} className={(lastIndexinPage-1)===i?style.boardTrMax:style.boardTr} >
                 <div className={style.boardIdx}>{`${board.boardForm.boardIndex+1}`}</div>
                 <div className={style.boardTitle}>{`${board.boardForm.boardTitle}`}</div>
                 <div className={style.boardContent}>{`${board.boardForm.boardContent}`}</div>
                 <div className={style.boardUserName}>{`${board.boardForm.boardUserName}`}</div>
                 <div className={style.boardDate}>{`${board.boardForm.boardWriteDate.split('_')[0]}`}</div>
                 <button type="button" onClick={(i) => {onClickBoardFormUpdateButton(i, board.boardForm)}} >수정하기</button>
-                <button type="button"  >삭제하기</button>
+                <button type="button" onClick={() => {onClickBoardDeleteButtonEvent(board.boardForm.boardIndex)}}>삭제하기</button>
               </div>
             )
         })}

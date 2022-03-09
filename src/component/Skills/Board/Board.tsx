@@ -539,6 +539,28 @@ class Board extends Component<Props, State>{
     });
   }
 
+  //board delete button event
+  onClickBoardDeleteButtonEvent = (boardNumber:number) => {
+    let dumyBoardForm = this.state.DumyBoards;
+    let deleteMessage = ''
+    let dumyBoardFormCopy = dumyBoardForm.filter((boardValue) => {
+      if (boardValue.boardForm.boardIndex!==boardNumber) {
+        return boardValue
+      } else {
+        deleteMessage = boardValue.boardForm.boardIndex+1+'번 글을 삭제하시겠습니까?';
+      }
+    })
+    console.log(dumyBoardFormCopy)
+    let deleteConfirmFlag = window.confirm(deleteMessage);
+    if (deleteConfirmFlag) {
+      this.setState({
+        DumyBoards:dumyBoardFormCopy
+      })
+    } else {
+      alert('삭제가 취소되었습니다.')
+    }
+  }
+
   //page Navi Control
   setPagiNavState = (limit, page) => {
     let offset_dump = ( page - 1 ) * limit;
@@ -586,7 +608,8 @@ class Board extends Component<Props, State>{
                 numPageNavi={numPages}
                 last={numPages.length}
                 setPagiNavState = {this.setPagiNavState}
-                onClickBoardFormUpdateButton={this.onClickBoardFormUpdateButton} />
+                onClickBoardFormUpdateButton={this.onClickBoardFormUpdateButton}
+                onClickBoardDeleteButtonEvent={this.onClickBoardDeleteButtonEvent} />
             )}
             {div_control===1 && (
                 <BoardWrite userInfo={{

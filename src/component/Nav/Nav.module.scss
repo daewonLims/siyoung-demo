@@ -51,7 +51,7 @@ h1, p {
       cursor: pointer;
       transform: translate(-2px);
   }
-  &[disabled] {
+  &[aria-readonly] {
       background: grey;
       cursor: revert;
       transform: revert;
